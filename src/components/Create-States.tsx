@@ -5,7 +5,6 @@ const CreateStates: React.FC = ():ReactElement => {
     id: number;
     code: string;
     name: string;
-    countryId: number;
   }
   const [countries, setCountries] = useState([]);
   const compareByName = (a:Country, b:Country) => {
