@@ -36,10 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+h1 {
+  margin: 15px;
+}
+h2 {
+  margin: 15px;
+}
 div.body{
   text-align: center;
-
+  
 }
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -64,4 +72,11 @@ li a:hover {
 }
 nav {
   text-align: center;
+}
+
+input {
+  margin: 5px;
+}
+input.code {
+  width: 25px;
 }

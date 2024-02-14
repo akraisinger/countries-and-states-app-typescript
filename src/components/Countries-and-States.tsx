@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from 'react';
-
+import axios from "axios";
 
 const CountriesAndStates: React.FC = ():ReactElement => {
   type CountryOrState = {
@@ -16,10 +16,9 @@ const CountriesAndStates: React.FC = ():ReactElement => {
   }
 
   useEffect(() => {
-    fetch('https://xc-countries-api.fly.dev/api/countries/')
-      .then(response => response.json())
-      .then(data => setCountries(data.sort(compareByName)))
-      .catch(error => console.error(error));
+    axios.get('https://xc-countries-api.fly.dev/api/countries/').then((response)=> {
+      setCountries(response.data.sort(compareByName));
+    });
   }, []);
 
   const onChangeHandler = () => {
@@ -30,11 +29,9 @@ const CountriesAndStates: React.FC = ():ReactElement => {
     }
     else {
       const url : string = `https://xc-countries-api.fly.dev/api/countries/${code}/states/`;
-      fetch(url)
-        .then(response => response.json())
-        .then(data => setStates(data.sort(compareByName)))
-        .catch(error => console.error(error));
-      
+      axios.get(url).then((response)=> {
+        setStates(response.data.sort(compareByName));
+      });
     }
 
     
