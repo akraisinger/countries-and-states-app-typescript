@@ -1,4 +1,4 @@
-import React,{ FC, ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 
 
 const CountriesAndStates: React.FC = ():ReactElement => {
@@ -8,7 +8,7 @@ const CountriesAndStates: React.FC = ():ReactElement => {
     name: string;
     countryId: number;
   }
-  
+
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const compareByName = (a:CountryOrState, b:CountryOrState) => {
@@ -42,6 +42,7 @@ const CountriesAndStates: React.FC = ():ReactElement => {
   
   return (
     <div>
+      <div><h1>Countries & States</h1></div>
       <label> Countries: 
       <select id="Country" style={{marginLeft: "10px"}} onChange={onChangeHandler}>
         <option value="">-- Pick a Country --</option>
