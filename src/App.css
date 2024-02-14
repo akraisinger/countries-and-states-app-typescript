@@ -43,6 +43,10 @@ h1 {
 h2 {
   margin: 15px;
 }
+h4 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
 div.body{
   text-align: center;
   
