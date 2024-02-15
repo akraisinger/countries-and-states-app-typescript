@@ -46,19 +46,19 @@ const CreateCountries: React.FC = ():ReactElement => {
       axios.get('https://xc-countries-api.fly.dev/api/countries/').then((response)=> {
         setCountries(response.data);
       });
+      (document.getElementById("cname") as HTMLInputElement).value = "";
+      (document.getElementById("ccode") as HTMLInputElement).value = "";
     }
     
   }
   return (
     <div>
         <h1>Create Countries</h1>
-        <form>
         <label>Name:</label>
         <input type="text" id="cname" name="cname"></input>
         <label className='code'>Code:</label>
         <input type="text" id="ccode" name="ccode" className='code'></input><br></br>
         <input type="button" value="Add Country" onClick={handleSubmit}></input>
-        </form>
     </div>
     )
 }
