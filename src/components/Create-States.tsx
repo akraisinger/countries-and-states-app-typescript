@@ -57,7 +57,7 @@ const CreateStates: React.FC = ():ReactElement => {
     newStates.forEach(function(nstate){
       console.log(nstate.code, nstate.name, cid)
       
-      axios.post(`https://xc-countries-api.fly.dev/api/countries/${code}/states`, {
+      axios.post(`https://xc-countries-api.fly.dev/api/states/`, {
         code: nstate.code,
         name: nstate.name,
         countryId: cid
