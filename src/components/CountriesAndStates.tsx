@@ -16,9 +16,9 @@ const CountriesAndStates: React.FC = ():ReactElement => {
   }
 
   useEffect(() => {
-    axios.get('https://xc-countries-api.fly.dev/api/countries/').then((response)=> {
+    axios.get('http://localhost:8000/api/countries/').then((response)=> {
       setCountries(response.data.sort(compareByName));
-    });
+    }).catch(ex => console.log(ex));
   }, []);
 
   const onChangeHandler = () => {
@@ -28,10 +28,10 @@ const CountriesAndStates: React.FC = ():ReactElement => {
       setStates([]);
     }
     else {
-      const url : string = `https://xc-countries-api.fly.dev/api/countries/${code}/states/`;
+      const url : string = `http://localhost:8000/api/countries/${code}/states/`;
       axios.get(url).then((response)=> {
         setStates(response.data.sort(compareByName));
-      });
+      }).catch(ex => console.log(ex));
     }
 
     

@@ -13,13 +13,15 @@ const CreateStates: React.FC = ():ReactElement => {
   }
   const [countries, setCountries] = useState<Country[]>([]);
   const [newStates, setNewStates] = useState<State[]>([]);
+  let successMessage = "";
+  const submitButton = document.getElementById("submit-states");
 
   const compareByName = (a:Country, b:Country) => {
     return ((a.name).localeCompare(b.name));
   }
 
   useEffect(() => {
-    fetch('https://xc-countries-api.fly.dev/api/countries/')
+    fetch('http://localhost:8000/api/countries/')
       .then(response => response.json())
       .then(data => setCountries(data.sort(compareByName)))
       .catch(error => console.error(error));
@@ -36,7 +38,11 @@ const CreateStates: React.FC = ():ReactElement => {
       name: sname
     }
     if (scode==scode.toUpperCase()&&sname[0]==sname[0].toUpperCase()) {
+      const success = document.getElementById("success");
+      success?.remove();
       setNewStates([...newStates].concat(newState));
+      (document.getElementById("sname") as HTMLInputElement).value = "";
+      (document.getElementById("scode") as HTMLInputElement).value = "";
     } else {
 
       alert("Please enter a valid state!");
@@ -57,14 +63,20 @@ const CreateStates: React.FC = ():ReactElement => {
     newStates.forEach(function(nstate){
       console.log(nstate.code, nstate.name, cid)
       
-      axios.post(`https://xc-countries-api.fly.dev/api/states/`, {
+      axios.post(`http://localhost:8000/api/states/`, {
         code: nstate.code,
         name: nstate.name,
         countryId: cid
       })
+      .then((response) => console.log(response))
+      .catch(ex => console.log(ex));
 
     })
     
+    successMessage = "<p id='success'>Successfully added states!</p>";
+    submitButton?.insertAdjacentHTML("beforebegin", successMessage);
+    setNewStates([]);
+
   }
 
   return (
@@ -76,15 +88,15 @@ const CreateStates: React.FC = ():ReactElement => {
             <option value="">-- Pick a Country --</option>
             {countries.map((country:Country) => {
             return (
-                <option value={country.code}>{country.name}</option>
+                <option value={country.code} key={country.id}>{country.name}</option>
             );
             })}
-        </select>
+            </select>
         </label>
 
         <form id='statesform'>
         <h2>Add States</h2>
-        <label>Name:<input type="text" id="sname" name="sname"></input></label>
+        <label className='name'>Name:<input type="text" id="sname" name="sname"></input></label>
         <label className='code'>Code:<input type="text" id="scode" name="scode" className='code'></input></label>
         <input type="button" value="Add" style={{marginLeft:'10px'}} onClick={handleAdd}></input><br></br>
         <h4>States</h4>
@@ -96,7 +108,8 @@ const CreateStates: React.FC = ():ReactElement => {
               </div>
             );
             })}
-        <input type="button" value="Submit" onClick={submitHandler}></input>
+        
+        <input id="submit-states" type="button" value="Submit" onClick={submitHandler}></input>
         </form>
     </div>
   )

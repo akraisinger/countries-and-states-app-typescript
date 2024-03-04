@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import CountriesAndStates from './components/Countries-and-States';
-import CreateCountries from './components/Create-Countries';
-import CreateStates from './components/Create-States';
+import CountriesAndStates from './components/CountriesAndStates';
+import CreateCountries from './components/CreateCountries';
+import CreateStates from './components/CreateStates';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
