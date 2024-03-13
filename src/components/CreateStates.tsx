@@ -13,8 +13,7 @@ const CreateStates: React.FC = ():ReactElement => {
   }
   const [countries, setCountries] = useState<Country[]>([]);
   const [newStates, setNewStates] = useState<State[]>([]);
-  let successMessage = "";
-  const submitButton = document.getElementById("submit-states");
+  const successMessage = document.getElementById("success-states") as HTMLParagraphElement;
 
   const compareByName = (a:Country, b:Country) => {
     return ((a.name).localeCompare(b.name));
@@ -37,7 +36,7 @@ const CreateStates: React.FC = ():ReactElement => {
       code: scode,
       name: sname
     }
-    if (scode==scode.toUpperCase()&&sname[0]==sname[0].toUpperCase()) {
+    if (scode&&sname&&scode==scode.toUpperCase()&&sname[0]==sname[0].toUpperCase()&&scode.length<4) {
       const success = document.getElementById("success");
       success?.remove();
       setNewStates([...newStates].concat(newState));
@@ -61,8 +60,6 @@ const CreateStates: React.FC = ():ReactElement => {
     console.log(code, cobj?.id);
 
     newStates.forEach(function(nstate){
-      console.log(nstate.code, nstate.name, cid)
-      
       axios.post(`http://localhost:8000/api/states/`, {
         code: nstate.code,
         name: nstate.name,
@@ -73,8 +70,7 @@ const CreateStates: React.FC = ():ReactElement => {
 
     })
     
-    successMessage = "<p id='success'>Successfully added states!</p>";
-    submitButton?.insertAdjacentHTML("beforebegin", successMessage);
+    successMessage.innerHTML=`Successfully added states to ${cobj?.name}!`;
     setNewStates([]);
 
   }
@@ -108,7 +104,7 @@ const CreateStates: React.FC = ():ReactElement => {
               </div>
             );
             })}
-        
+        <p id="success-states"></p>
         <input id="submit-states" type="button" value="Submit" onClick={submitHandler}></input>
         </form>
     </div>
